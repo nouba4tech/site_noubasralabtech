@@ -21,11 +21,13 @@ Les liens suivants sont déjà configurés dans le site (nav, hero, footer, sect
 - YouTube : https://www.youtube.com/@NLABTECHOFFICIEL
 - Facebook : https://www.facebook.com/profile.php?id=61580141431218
 
-## Configuration YouTube API (optionnel)
+## Affichage automatique de toutes les vidéos
 
-Par défaut, le site affiche les 3 vidéos statiques codées dans `index.html` et les rend cliquables vers votre chaîne YouTube — aucune clé API n'est requise pour que le site fonctionne.
+La section "Vidéos" intègre le lecteur YouTube officiel (iframe) branché sur la playlist "uploads" de la chaîne — cette playlist contient automatiquement **toutes** les vidéos publiées et se met à jour toute seule dès qu'une nouvelle vidéo sort, sans clé API, sans proxy tiers et sans aucune maintenance. C'est ce qui s'affiche par défaut.
 
-Pour charger automatiquement les dernières vidéos de votre chaîne à la place :
+(Note technique : une tentative initiale via le flux RSS public + un proxy CORS gratuit a été abandonnée car ce proxy s'est révélé peu fiable en test — l'iframe officielle est une solution plus robuste pour un site 100% statique.)
+
+### Passer à des cartes personnalisées via l'API officielle (optionnel)
 
 1. **Créer une clé API YouTube** :
    - Allez sur [Google Cloud Console](https://console.cloud.google.com/)
@@ -37,6 +39,7 @@ Pour charger automatiquement les dernières vidéos de votre chaîne à la place
    - Ouvrez `js/youtube.js`
    - Renseignez votre clé API dans la constante `API_KEY`
    - Le `CHANNEL_ID` est déjà configuré pour votre chaîne (`UCsjJdWuzdaBiHzaByKlDDag`)
+   - Une fois une clé renseignée, le site charge des cartes vidéo personnalisées via l'API et masque l'iframe
 
 ## Fonctionnalités
 
@@ -59,8 +62,8 @@ Dans `css/style.css`, modifiez les variables CSS dans `:root` :
 }
 ```
 
-### Modifier les vidéos statiques
-Tant qu'aucune clé API n'est configurée, éditez directement les 3 cartes vidéo dans la section `<!-- ── VIDEOS ── -->` de `index.html` (titre, tag, date).
+### Modifier l'affichage des vidéos
+Par défaut, tout vient de l'iframe YouTube (`.videos-embed-wrap` dans `index.html`, section `<!-- ── VIDEOS ── -->`) — rien à modifier, YouTube gère l'affichage. Les cartes personnalisées (`.video-card`) ne sont générées que si une clé API est configurée (voir ci-dessus) ; leur style se modifie dans `css/style.css`.
 
 ## Lancement
 
