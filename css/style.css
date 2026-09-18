@@ -328,9 +328,11 @@ section { position: relative; z-index: 1; }
   border: 1px solid rgba(66,165,245,0.2);
   display: flex; align-items: center; justify-content: center;
   flex-direction: column; gap: 10px;
+  overflow: hidden;
   animation: rotateSlow 20s linear infinite reverse;
 }
 .about-yt-icon { filter: drop-shadow(0 0 20px rgba(255,0,0,0.6)); }
+.about-photo { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
 .about-list { list-style: none; margin-top: 32px; display: flex; flex-direction: column; gap: 14px; }
 .about-list li {
   display: flex; align-items: flex-start; gap: 12px;
