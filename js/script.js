@@ -30,3 +30,14 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
     if (target) { e.preventDefault(); target.scrollIntoView({ behavior:'smooth', block:'start' }); }
   });
 });
+
+// ── Sidebar (mobile) ──
+const sidebarToggle = document.getElementById('sidebarToggle');
+const sidebarBackdrop = document.getElementById('sidebarBackdrop');
+
+function closeSidebar() { document.body.classList.remove('sidebar-open'); }
+function toggleSidebar() { document.body.classList.toggle('sidebar-open'); }
+
+if (sidebarToggle) sidebarToggle.addEventListener('click', toggleSidebar);
+if (sidebarBackdrop) sidebarBackdrop.addEventListener('click', closeSidebar);
+document.querySelectorAll('.sidebar-link').forEach(a => a.addEventListener('click', closeSidebar));
