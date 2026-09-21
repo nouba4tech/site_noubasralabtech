@@ -18,8 +18,23 @@ function animateCounter(el, target, suffix='') {
   requestAnimationFrame(step);
 }
 const subsEl = document.getElementById('subs');
+const FALLBACK_SUBSCRIBERS = 1123; // dernier nombre connu, utilisé seulement si /api/stats échoue
+
+async function getSubscriberCount() {
+  try {
+    const response = await fetch('/api/stats');
+    const data = await response.json();
+    return data.subscribers || FALLBACK_SUBSCRIBERS;
+  } catch (error) {
+    return FALLBACK_SUBSCRIBERS;
+  }
+}
+
 const heroObs = new IntersectionObserver(entries => {
-  if(entries[0].isIntersecting) { animateCounter(subsEl, 1200, '+'); heroObs.disconnect(); }
+  if (entries[0].isIntersecting) {
+    getSubscriberCount().then(count => animateCounter(subsEl, count));
+    heroObs.disconnect();
+  }
 });
 heroObs.observe(subsEl);
 
